@@ -11,6 +11,7 @@ return {
       scss = { "prettier" },
       markdown = { "prettier" },
       yaml = { "prettier" },
+      rust = { "rustfmt" },
     },
   },
 }

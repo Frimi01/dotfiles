@@ -14,3 +14,6 @@ opt.shiftwidth = 2
 opt.langmenu = "en_US"
 vim.cmd("language en_US")
 
+-- terminal shell
+vim.opt.shell = "pwsh"
+vim.opt.shellcmdflag = "-NoLogo"

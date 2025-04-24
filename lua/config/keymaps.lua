@@ -4,7 +4,6 @@
 
 local keymap = vim.keymap.set
 
--- Open netrw file explorer with <leader>pv
 keymap("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw file explorer" })
-
+keymap("n", "<leader>r", vim.lsp.buf.rename, { desc = "renames stuff with lsp" })
 keymap("n", "<C-a>", "ggVG", { desc = "Selects entire document" })
