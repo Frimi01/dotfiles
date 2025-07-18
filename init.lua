@@ -174,6 +174,7 @@ require('mini.completion').setup({})
 require('mini.icons').setup({})
 require('mini.statusline').setup({})
 require('mini.pairs').setup({})
+require('mini.sessions').setup({})
 require("catppuccin").setup({
         flavour = "mocha",
       })
@@ -196,12 +197,17 @@ starter.setup ({
     .. vim.fn.fnamemodify(vim.fn.getcwd(), ":~:."),
 
   items = {
+    {
+        name = "File Explorer",
+        action = function()
+          vim.cmd('enew') 
+          vim.cmd('Explore')
+        end, section = "Actions",
+    },
     starter.sections.recent_files(5, false, function(path)
       -- Bring back trailing slash after `dirname`
       return " " .. vim.fn.fnamemodify(path, ":~:.:h") .. "/"
     end),
-	{ name = 'Sessions', action = ":lua require'telescope'.extensions.sessions.sessions{}", section = 'Telescope' },
-	{ name = 'Find Files', action = ':Telescope find_files', section = 'Telescope' },
 	-- starter.sections.recent_files(10, false),
 	-- starter.sections.recent_files(10, true),
 	-- Use this if you set up 'mini.sessions'
@@ -226,6 +232,27 @@ keymap("i", "jk", "<Esc>", { desc = "Escapes insert mode"})
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
+-- sessions
+keymap("n", "<leader>Ss", function() local name = vim.fn.input("Save session as: ")
+    if name ~= "" then
+        MiniSessions.write(name) end
+    end, { desc = "Save session"})
+
+keymap("n", "<leader>Sl", function() local name = vim.fn.input("Load session: ")
+    if name ~= "" then
+        MiniSessions.read(name) end
+    end, { desc = "Loads session"})
+
+keymap("n", "<leader>Sd", function() local name = vim.fn.input("Delete session: ")
+    if name ~= "" then
+        MiniSessions.delete(name) end
+    end, { desc = "Deletes session"})
+
+keymap("n", "<leader>Sp", function() MiniSessions.read(MiniSessions.get_latest())
+    end, { desc = "Loads previous session"})
+
+
+-- telescope
 local builtin = require('telescope.builtin')
 keymap('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 keymap('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
