@@ -15,24 +15,30 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- OPTIONS
+-- Local Variables
 local opt = vim.opt
+local g = vim.g
+local api = vim.api
+local cmd = vim.cmd
+local keymap = vim.keymap.set
+
+-- OPTIONS
 opt.clipboard = 'unnamedplus'
 opt.number = true
 opt.relativenumber = true
 
-vim.cmd('syntax on')
+cmd('syntax on')
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+g.mapleader = " "
+g.maplocalleader = "\\"
 
-vim.api.nvim_create_autocmd("VimEnter", {
+api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    vim.api.nvim_set_hl(0, "LineNr0", { fg = "#dedede" })
-    vim.api.nvim_set_hl(0, "LineNr1", { fg = "#bdbdbd" })
-    vim.api.nvim_set_hl(0, "LineNr2", { fg = "#9c9c9c" })
-    vim.api.nvim_set_hl(0, "LineNr3", { fg = "#7b7b7b" })
-    vim.api.nvim_set_hl(0, "LineNr4", { fg = "#5a5a5a" })
+    api.nvim_set_hl(0, "LineNr0", { fg = "#dedede" })
+    api.nvim_set_hl(0, "LineNr1", { fg = "#bdbdbd" })
+    api.nvim_set_hl(0, "LineNr2", { fg = "#9c9c9c" })
+    api.nvim_set_hl(0, "LineNr3", { fg = "#7b7b7b" })
+    api.nvim_set_hl(0, "LineNr4", { fg = "#5a5a5a" })
   end
 })
 local separator = " ▎ "
@@ -51,7 +57,7 @@ opt.shiftwidth = 4
 
 -- Language fix
 opt.langmenu = "en_US"
-vim.cmd("language en_US")
+cmd("language en_US")
 
 -- terminal shell
 opt.shell = "pwsh"
@@ -169,24 +175,24 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-require('mini.snippets').setup({})
-require('mini.completion').setup({})
-require('mini.icons').setup({})
-require('mini.statusline').setup({})
-require('mini.pairs').setup({})
-require('mini.sessions').setup({})
+require('mini.snippets').setup()
+require('mini.completion').setup()
+require('mini.icons').setup()
+require('mini.statusline').setup()
+require('mini.pairs').setup()
+require('mini.sessions').setup()
 require("catppuccin").setup({
         flavour = "mocha",
       })
 
-vim.cmd.colorscheme('catppuccin')
-vim.api.nvim_exec_autocmds("FileType", {})
+cmd.colorscheme('catppuccin')
+api.nvim_exec_autocmds("FileType", {})
 
 -- STARTER SCREEN
 local starter = require('mini.starter')
 starter.setup ({
   -- evaluate_single = true,
-  header = 
+  header =
        "███████╗██████╗ ██╗██╗   ██╗██╗███╗   ███╗\n"
     .. "██╔════╝██╔══██╗██║██║   ██║██║████╗ ████║\n"
     .. "█████╗  ██████╔╝██║██║   ██║██║██╔████╔██║\n"
@@ -200,11 +206,23 @@ starter.setup ({
     {
         name = "File Explorer",
         action = function()
-          vim.cmd('enew') 
-          vim.cmd('Explore')
+          cmd('enew')
+          cmd('Explore')
         end, section = "Actions",
     },
-    starter.sections.recent_files(5, false, function(path)
+    {
+        name = "Lazy",
+        action = function()
+          cmd('Lazy')
+        end, section = "Actions",
+    },
+    {
+        name = "Mason",
+        action = function()
+          cmd('Mason')
+        end, section = "Actions",
+    },
+    starter.sections.recent_files(3, false, function(path)
       -- Bring back trailing slash after `dirname`
       return " " .. vim.fn.fnamemodify(path, ":~:.:h") .. "/"
     end),
@@ -223,9 +241,8 @@ starter.setup ({
 })
 
 -- KEYMAPS
-local keymap = vim.keymap.set
 
-keymap("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw file explorer" })
+keymap("n", "<leader>pv", cmd.Ex, { desc = "Open netrw file explorer" })
 keymap("n", "<leader>r", vim.lsp.buf.rename, { desc = "renames stuff with lsp" })
 keymap("n", "<C-a>", "ggVG", { desc = "Selects entire document" })
 keymap("i", "jk", "<Esc>", { desc = "Escapes insert mode"})
@@ -258,3 +275,24 @@ keymap('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 keymap('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 keymap('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 keymap('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+-- LOAD LAST
+
+-- mini.notify
+    -- https://github.com/echasnovski/nvim/blob/master/init.lua
+local predicate = function(notif)
+if not (notif.data.source == 'lsp_progress' and notif.data.client_name == 'lua_ls') then return true end
+	-- Filter out some LSP progress notifications from 'lua_ls'
+	return notif.msg:find('Diagnosing') == nil and notif.msg:find('semantic tokens') == nil
+end
+local custom_sort = function(notif_arr) return MiniNotify.default_sort(vim.tbl_filter(predicate, notif_arr)) end
+
+require('mini.notify').setup({ content = { sort = custom_sort },
+--    window = {
+--        config = {
+--          border = "solid",
+--          width = 80,
+--        },
+--    },
+  })
+vim.notify = MiniNotify.make_notify()
