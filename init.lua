@@ -92,13 +92,13 @@ opt.statuscolumn =
     .. '%#LineNr0#%{(v:relnum == 0)?v:lnum."' .. separator .. '":""}'
 
 
--- Language fix
-opt.langmenu = "en_US"
-cmd("language en_US")
-
--- terminal shell
-opt.shell = "pwsh"
-opt.shellcmdflag = "-NoLogo"
+---- Language fix
+--opt.langmenu = "en_US"
+--cmd("language en_US")
+--
+---- terminal shell
+--opt.shell = "pwsh"
+--opt.shellcmdflag = "-NoLogo"
 
 -- PLUGINS
 require("lazy").setup({
