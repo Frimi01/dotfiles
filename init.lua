@@ -23,10 +23,10 @@ local cmd = vim.cmd
 local keymap = vim.keymap.set
 
 -- OPTIONS
+
 opt.clipboard = "unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.cursorline = true -- Enable highlighting of the current line
-opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
 	foldopen = "",
 	foldclose = "",
@@ -52,7 +52,6 @@ opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
 opt.spelllang = { "en" }
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
@@ -62,11 +61,12 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = true -- Disable line wrap
 
+opt.tabstop = 4
+opt.shiftwidth = 4
 opt.number = true
 opt.relativenumber = true
 opt.textwidth = 80
 opt.colorcolumn = "80"
-opt.shiftwidth = 4
 
 opt.breakindent = true
 opt.showbreak = "↳ "
@@ -296,15 +296,14 @@ cmp.setup({
 })
 
 require("conform").setup({
-	formatters_by_ft = {
-		lua = { "stylua" },
-		javascript = { "prettier" },
-		typescript = { "prettier" },
-		json = { "prettier" },
-		html = { "prettier" },
-		css = { "prettier" },
-	},
-	format_on_save = {
+  formatters_by_ft = {
+    lua = { "stylua" },
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    json = { "prettier" },
+    html = { "prettier" },
+    css = { "prettier" },
+  },_on_save = {
 		lsp_fallback = true,
 		timeout_ms = 500,
 	},
@@ -336,13 +335,6 @@ starter.setup({
 			name = "Lazy",
 			action = function()
 				cmd("Lazy")
-			end,
-			section = "Actions",
-		},
-		{
-			name = "Mason",
-			action = function()
-				cmd("Mason")
 			end,
 			section = "Actions",
 		},
