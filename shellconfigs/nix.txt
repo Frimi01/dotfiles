@@ -1,0 +1,112 @@
+cat lib-libgdx.nix lib-main.nix lib-systray.nix shell-dev.nix shell-libgdx.nix shell-systray.nix
+
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  runtimeLibs = with pkgs; lib.makeLibraryPath [
+    glfw
+    libGL
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXext
+    xorg.libXrandr
+    xorg.libXxf86vm
+  ];
+in {
+  buildInputs = [
+    pkgs.jdk17_headless
+  ];
+
+  shellHook = ''
+    export LD_LIBRARY_PATH=${runtimeLibs}:$LD_LIBRARY_PATH
+  '';
+}
+{ pkgs ? import <nixpkgs> {} }:
+
+with pkgs;
+
+{
+  buildInputs = [
+    nodejs_24
+    nodePackages.typescript
+    go
+    jdk
+
+    # build
+    gradle 
+    maven
+
+    # language servers
+    nodePackages.typescript-language-server
+    nodePackages.prettier
+    gopls
+    jdt-language-server
+    stylua
+
+  ];
+
+  shellHook = ''
+    echo "Dev shell ready: all tools avalable!"
+  '';
+}
+
+{ pkgs ? import <nixpkgs> {} }:
+
+with pkgs;
+
+{
+  buildInputs = [
+    pkg-config
+    gtk3
+    libayatana-appindicator
+  ];
+}
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  main = import ~/shellconfigs/lib-main.nix { inherit pkgs; };
+in
+
+pkgs.mkShell {
+  name = "dev-shell";
+
+  buildInputs = main.buildInputs;
+  shellHook = main.shellHook;
+}
+
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  main = import ~/shellconfigs/lib-main.nix { inherit pkgs; };
+  libgdx = import ~/shellconfigs/lib-libgdx.nix { inherit pkgs; };
+in
+
+pkgs.mkShell {
+  name = "libgdx-shell";
+
+  buildInputs = main.buildInputs ++ libgdx.buildInputs;
+
+  shellHook = ''
+    ${main.shellHook or ""}
+    ${libgdx.shellHook or ""}
+  '';
+}
+
+{ pkgs ? import <nixpkgs> {} }:
+
+let
+  main = import ~/shellconfigs/lib-main.nix { inherit pkgs; };
+  systray = import ~/shellconfigs/lib-systray.nix { inherit pkgs; };
+in
+
+pkgs.mkShell {
+  name = "systray-shell";
+
+  buildInputs = main.buildInputs ++ systray.buildInputs;
+
+  shellHook = ''
+    ${main.shellHook or ""}
+    ${systray.shellHook or ""}
+  '';
+}
+
