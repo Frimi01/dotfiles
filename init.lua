@@ -24,7 +24,7 @@ local keymap = vim.keymap.set
 
 -- OPTIONS
 
-opt.clipboard = "unnamedplus"
+vim.opt.clipboard="unnamed,unnamedplus"
 opt.completeopt = "menu,menuone,noselect"
 opt.cursorline = true -- Enable highlighting of the current line
 opt.fillchars = {
