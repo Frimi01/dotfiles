@@ -6,7 +6,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.nixos
+      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -104,8 +104,8 @@
     extraSpecialArgs = { inherit inputs; };
     users = {
         "frimi01" = import ./home.nix; 
-        }
-    }
+        };
+    };
 
 
 
