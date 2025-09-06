@@ -133,6 +133,9 @@
   programs.firefox.enable = true;
 
 
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

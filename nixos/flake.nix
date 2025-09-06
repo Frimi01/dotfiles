@@ -11,24 +11,27 @@
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
-  let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs { # home manager
-      inherit system;
-      config.allowUnfree = true; 
-    };
-  in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/nixos/configuration.nix
-        home-manager.nixosModules.default
-      ];
-    };
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        #home-manager
+        inherit system;
+        config.allowUnfree = true;
+      };
+    in
+    {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/nixos/configuration.nix
+          home-manager.nixosModules.default
+        ];
+      };
 
-    homeConfigurations."frimi01@nixos" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [ ./hosts/nixos/home.nix ];
+      homeConfigurations."frimi01@nixos" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [ ./hosts/nixos/home.nix ];
+      };
     };
-  };
 }
