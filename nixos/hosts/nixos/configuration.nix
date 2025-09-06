@@ -150,9 +150,6 @@
   ];
 
   
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-
   services.clamav.daemon.enable = true;
   services.clamav.updater.enable = true; 
 
