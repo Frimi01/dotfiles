@@ -1,8 +1,5 @@
 { config, pkgs, lib, inputs, ... }:
 
-let
-  configString = builtins.readFile "${inputs.self}/hosts/nixos/waybar/config.json";
-in
 {
   home.username = "frimi01";
   home.homeDirectory = "/home/frimi01";
@@ -60,7 +57,7 @@ in
 
   programs.waybar = {
     enable = true;
-    settings = builtins.fromJSON configString;
+    settings = import "${inputs.self}/hosts/nixos/waybar/config.nix";
     style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
   };
 
