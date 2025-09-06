@@ -1,10 +1,15 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   home.username = "frimi01";
   home.homeDirectory = "/home/frimi01";
 
   wayland.windowManager.hyprland.enable = true;
+  wayland.windowManager.hyprland.extraConfig = builtins.concatStringsSep "\n" [
+    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/animations.conf")
+    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/keybinds.conf")
+  ];
+
   wayland.windowManager.hyprland.settings = {
     # variables
     "$mod" = "SUPER";
@@ -49,62 +54,6 @@
         color = "rgba(1a1a1aee)";
       };
     };
-
-    animations = {
-      enabled = true;
-      bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-      animation = [
-        "windows, 1, 7, myBezier"
-        "windowsOut, 1, 7, default, popin 80%"
-        "border, 1, 10, default"
-        "borderangle, 1, 8, default"
-        "fade, 1, 7, default"
-        "workspaces, 1, 6, default"
-      ];
-    };
-
-    # keybindings
-    bind =
-      [
-        "$mod, RETURN, exec, alacritty"
-        "$mod, F, exec, firefox"
-        ", Print, exec, grimblast copy area"
-        "$mod, D, exec, wofi --show drun"
-
-        "$mod, Q, killactive" # Close active window
-        "$mod, M, exit" # Exit Hyprland
-        "$mod, V, togglefloating" # Toggle floating mode
-        "$mod, P, pseudo" # Dwindle layout pseudo-tiling
-        "$mod, J, togglesplit" # Toggle split direction
-
-        # Focus movement
-        "$mod,h, movefocus, l"
-        "$mod,l, movefocus, r"
-        "$mod,k, movefocus, u"
-        "$mod,j, movefocus, d"
-
-        # Window movement
-        "$mod SHIFT,h, movewindow, l"
-        "$mod SHIFT,l, movewindow, r"
-        "$mod SHIFT,k, movewindow, u"
-        "$mod SHIFT,j, movewindow, d"
-
-        # Resize windows
-        "$mod CTRL,h, resizeactive, -20 0"
-        "$mod CTRL,l, resizeactive, 20 0"
-        "$mod CTRL,k, resizeactive, 0 -20"
-        "$mod CTRL,j, resizeactive, 0 20"
-      ]
-      ++ (
-        builtins.concatLists (builtins.genList
-          (i:
-            let ws = i + 1;
-            in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-            ]
-          ) 9)
-      );
   };
 
   programs.zoxide.enable = true;
