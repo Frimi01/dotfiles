@@ -57,8 +57,7 @@
 
   programs.waybar = {
     enable = true;
-    settings = builtins.readFile
-      "${inputs.self}/hosts/nixos/waybar/config.nix";
+    settings = import "${inputs.self}/hosts/nixos/waybar/config.nix";
     style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
   };
 

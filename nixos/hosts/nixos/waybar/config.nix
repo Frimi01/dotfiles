@@ -2,12 +2,12 @@
   settings = {
     mainBar = {
       layer = "top";
-      position = "top";
-      height = 30;
-      output = [
-        "eDP-1"
-        "HDMI-A-1"
-      ];
+      position = "bottom";
+      height = 40;
+      #output = [
+      #  "eDP-1"
+      #  "HDMI-A-1"
+      #];
       modules-left = [ "hyprland/workspaces" ];
       modules-center = [ "hyprland/window" ];
       modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "battery" "clock" "tray" ];
