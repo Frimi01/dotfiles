@@ -122,23 +122,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  wget  
-    alacritty
-    tmux
+    home-manager
     git
     gcc
-    obsidian
-    lazygit
-    xclip
-    unzip
-	vial
-    jdk24
-    jetbrains.idea-community
   ]; 
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-  "obsidian"
-  # "corefonts"
-  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
