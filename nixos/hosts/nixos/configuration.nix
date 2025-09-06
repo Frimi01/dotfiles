@@ -9,6 +9,7 @@
       inputs.home-manager.nixosModules.default
     ];
 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -55,6 +56,7 @@
   services.displayManager.gdm.enable = true;
   services.displayManager.gdm.wayland = true;
   services.desktopManager.gnome.enable = true;
+  programs.hyprland.enable = true;
 
   # Intel GPU driver
   # services.videoDrivers = [ "intel" ];
