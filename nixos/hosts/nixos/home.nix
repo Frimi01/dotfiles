@@ -42,10 +42,12 @@
 		size = 3;
 		passes = 1;
 		};
-		drop_shadow = true;
-		shadow_range = 4;
-		shadow_render_power = 3;
-		"col.shadow" = "rgba(1a1a1aee)";
+		shadow = {
+			enabled = true;
+			range = 4;
+			render_power = 3;
+			color = "rgba(1a1a1aee)";
+		};
 	};
 	
 	animations = {
@@ -76,22 +78,22 @@
 		"$mod, J, togglesplit"          # Toggle split direction
 		
 		# Focus movement
-		"$mod, left, movefocus, h"
-		"$mod, right, movefocus, l" 
-		"$mod, up, movefocus, k"
-		"$mod, down, movefocus, j"
+		"$mod,h, movefocus, l"
+		"$mod,l, movefocus, r" 
+		"$mod,k, movefocus, u"
+		"$mod,j, movefocus, d"
 		
 		# Window movement
-		"$mod SHIFT, left, movewindow, h"
-		"$mod SHIFT, right, movewindow, l"
-		"$mod SHIFT, up, movewindow, k"
-		"$mod SHIFT, down, movewindow, j"
+		"$mod SHIFT,h, movewindow, l"
+		"$mod SHIFT,l, movewindow, r"
+		"$mod SHIFT,k, movewindow, u"
+		"$mod SHIFT,j, movewindow, d"
 		
 		# Resize windows
-		"$mod CTRL, left, resizeactive, -20 0"
-		"$mod CTRL, right, resizeactive, 20 0"
-		"$mod CTRL, up, resizeactive, 0 -20"
-		"$mod CTRL, down, resizeactive, 0 20"
+		"$mod CTRL,h, resizeactive, -20 0"
+		"$mod CTRL,l, resizeactive, 20 0"
+		"$mod CTRL,k, resizeactive, 0 -20"
+		"$mod CTRL,j, resizeactive, 0 20"
 		]
 		++ (
 		builtins.concatLists (builtins.genList (i:
