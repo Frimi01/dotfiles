@@ -1,7 +1,7 @@
 {
   layer = "top";
   position = "top";
-  height = 25;
+  #height = 30;
   margin-left = 5;
   margin-right = 5;
   margin-top = 5;
@@ -10,86 +10,32 @@
   reload_style_on_change = true;
 
   modules-left = [
-    "group/group-1"
-    "group/group-9" 
-    "group/group-6"
+    "hyprland/workspaces"
+    "mpris"
+    "custom/previous"
+    "custom/pause"
+    "custom/next"
+    "custom/pacman"
+    "custom/pkg-aur"
   ];
   modules-center = [
-    "group/group-5"
+    "clock"
   ];
   modules-right = [
-    "group/group-4"
-    "group/group-3"
-    "group/group-2"
+    "bluetooth"
+    "battery"
+    "network"
+    "custom/power"
+    "custom/wallpaper"
+    "wireplumber"
+    "backlight"
+    "cpu"
+    "temperature"
+    "disk"
+    "memory"
   ];
 
-  "group/group-1" = {
-    orientation = "horizontal";
-    drawer = {
-      transition-duration = 500;
-      children-class = "not-power";
-      transition-left-to-right = false;
-    };
-    modules = [
-      "hyprland/workspaces"
-    ];
-  };
-
-  "group/group-2" = {
-    orientation = "horizontal";
-    modules = [
-      "cpu"
-      "temperature" 
-      "disk"
-      "memory"
-    ];
-  };
-
-  "group/group-3" = {
-    orientation = "horizontal";
-    modules = [
-      "wireplumber"
-      "backlight"
-    ];
-  };
-
-  "group/group-4" = {
-    orientation = "horizontal";
-    modules = [
-      "bluetooth"
-      "battery"
-      "network"
-      "custom/power"
-      "custom/wallpaper"
-    ];
-  };
-
-  "group/group-5" = {
-    orientation = "horizontal";
-    modules = [
-      "clock"
-    ];
-  };
-
-  "group/group-6" = {
-    orientation = "horizontal";
-    modules = [
-      "custom/pacman"
-      "custom/pkg-aur"
-    ];
-  };
-
-  "group/group-9" = {
-    orientation = "horizontal";
-    modules = [
-      "mpris"
-      "custom/previous"
-      "custom/pause"
-      "custom/next"
-    ];
-  };
-
-  # Module configurations (keep these as-is, just convert JSON syntax to Nix)
+  # Module configurations (no groups, just the modules directly)
   "hyprland/workspaces" = {
     on-click = "activate";
     activate-only = false;
