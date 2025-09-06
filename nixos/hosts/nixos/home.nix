@@ -27,7 +27,6 @@
       follow_mouse = 1;
     };
 
-
     # monitor config (auto-detect first monitor)
     monitor = ",preferred,auto,1";
 
@@ -54,6 +53,13 @@
         color = "rgba(1a1a1aee)";
       };
     };
+  };
+
+  programs.waybar = {
+    enable = true;
+    settings = builtins.readFile
+      "${inputs.self}/hosts/nixos/waybar/config.nix";
+    style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
   };
 
   programs.zoxide.enable = true;
@@ -151,6 +157,7 @@
     dunst
     grimblast
     playerctl
+    brightnessctl
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
