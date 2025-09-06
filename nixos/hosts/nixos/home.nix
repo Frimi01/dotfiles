@@ -60,8 +60,17 @@
     style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
   };
   xdg.configFile."waybar/config.jsonc".source = "${inputs.self}/hosts/nixos/waybar/config.jsonc";
+  xdg.configFile."waybar/power_menu.xml".source =
+    "${inputs.self}/hosts/nixos/waybar/power_menu.xml";
+
+  xdg.configFile."wofi/style.css".source =
+    "${inputs.self}/hosts/nixos/wofi/style.css";
+
+  xdg.configFile."wlogout/layout".source =
+    "${inputs.self}/hosts/nixos/wlogout-layout";
 
   programs.zoxide.enable = true;
+
   programs.bash.enable = true;
   programs.alacritty = {
     enable = true;
@@ -150,6 +159,8 @@
     tree
     fd
     ripgrep
+    wlogout
+    hyprlock
 
     # hyprland
     pavucontrol
