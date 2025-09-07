@@ -198,6 +198,10 @@
     jdk24
     jetbrains.idea-community
 
+    # spellcheck
+    hunspell
+    hunspellDicts.en_US
+
     # sys utils
     htop
     fastfetch
