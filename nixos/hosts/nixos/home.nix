@@ -23,8 +23,10 @@
 
     # input
     input = {
-      kb_layout = "us";
-      follow_mouse = 1;
+      kb_layout = "us, us, no";
+      kb_variant = ", colemak, ";
+      kb_options = "grp:win_space_toggle";
+      # follow_mouse = 1;
     };
 
     # monitor config (auto-detect first monitor)
