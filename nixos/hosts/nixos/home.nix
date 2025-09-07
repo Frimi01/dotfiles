@@ -55,10 +55,26 @@
     };
   };
 
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      ipc = "on";
+      splash = false;
+      splash_offset = 2.0;
+
+      preload = [ "/home/frimi01/Pictures/wallpaper1/wallhaven-2yxp16.jpg" ];
+
+      wallpaper = [
+        ",/home/frimi01/Pictures/wallpaper1/wallhaven-2yxp16.jpg"
+      ];
+    };
+  };
+
   programs.waybar = {
     enable = true;
     style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
   };
+
   xdg.configFile."waybar/config.jsonc".source = "${inputs.self}/hosts/nixos/waybar/config.jsonc";
   xdg.configFile."waybar/power_menu.xml".source =
     "${inputs.self}/hosts/nixos/waybar/power_menu.xml";
@@ -144,6 +160,9 @@
       tree-sitter # Better syntax highlighting
     ];
   };
+
+
+
   home.packages = with pkgs; [
     obsidian
     lazygit
