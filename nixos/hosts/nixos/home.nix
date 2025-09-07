@@ -25,7 +25,7 @@
     input = {
       kb_layout = "us, us, no";
       kb_variant = ", colemak, ";
-      kb_options = "grp:win_space_toggle";
+      kb_options = "grp:win_space_toggle, altwin:swap_alt_win,caps:swapescape";
       # follow_mouse = 1;
     };
 
@@ -57,6 +57,7 @@
     };
   };
 
+  services.hypridle.enable = true;
   services.hyprpaper = {
     enable = true;
     settings = {
