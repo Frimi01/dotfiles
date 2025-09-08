@@ -111,6 +111,14 @@
   xdg.configFile."wlogout/layout".source =
     "${inputs.self}/hosts/nixos/wlogout-layout";
 
+  xdg.configFile."alacritty/alacritty.toml".source =
+    "${inputs.self}/hosts/nixos/div/alacritty.toml";
+
+  xdg.configFile."hypr/shaders" = {
+    source = "${inputs.self}/hosts/nixos/hypr/shaders";
+    recursive = true;
+  };
+
   programs.zoxide.enable = true;
 
   programs.bash.enable = true;
