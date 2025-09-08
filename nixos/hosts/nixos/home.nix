@@ -96,6 +96,17 @@
     };
   };
 
+  services.mpd = {
+    enable = true;
+    musicDirectory = "/home/frimi01/Music/";
+    extraConfig = ''
+      			audio_output {
+      			type "pulse"
+      			name "PulseAudio"
+      			}
+      			'';
+  };
+
   programs.waybar = {
     enable = true;
     style = builtins.readFile "${inputs.self}/hosts/nixos/waybar/style.css";
