@@ -11,7 +11,7 @@
         "hyprland/mode",
         "hyprland/scratchpad",
         "hyprland/window",
-        "mpd"
+		"custom/media"
     ],
     "modules-center": [
         "clock"
@@ -66,32 +66,18 @@
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 5,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
+	"custom/media": {
+		"format": "{icon} {}",
+		"escape": true,
+		"return-type": "json",
+		"max-length": 40,
+		"on-click": "playerctl play-pause",
+		"on-click-right": "playerctl stop",
+		"smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+		"on-scroll-up": "playerctl next",
+		"on-scroll-down": "playerctl previous",
+		"exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
+	},
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {

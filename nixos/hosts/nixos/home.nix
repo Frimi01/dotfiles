@@ -96,16 +96,6 @@
     };
   };
 
-  services.mpd = {
-    enable = true;
-    musicDirectory = "/home/frimi01/Music/";
-    extraConfig = ''
-      			audio_output {
-      			type "pulse"
-      			name "PulseAudio"
-      			}
-      			'';
-  };
 
   programs.waybar = {
     enable = true;
@@ -113,8 +103,8 @@
   };
 
   xdg.configFile."waybar/config.jsonc".source = "${inputs.self}/hosts/nixos/waybar/config.jsonc";
-  xdg.configFile."waybar/power_menu.xml".source =
-    "${inputs.self}/hosts/nixos/waybar/power_menu.xml";
+  xdg.configFile."waybar/mediaplayer.py".source =
+    "${inputs.self}/hosts/nixos/waybar/mediaplayer.py";
 
   xdg.configFile."wofi/style.css".source =
     "${inputs.self}/hosts/nixos/wofi/style.css";
