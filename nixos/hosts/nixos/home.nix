@@ -6,7 +6,7 @@
 
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.extraConfig = builtins.concatStringsSep "\n" [
-    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/animations.conf")
+    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/animations-instant.conf")
     (builtins.readFile "${inputs.self}/hosts/nixos/hypr/keybinds.conf")
   ];
 
