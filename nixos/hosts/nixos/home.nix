@@ -217,6 +217,7 @@
     grimblast
     playerctl
     brightnessctl
+    hyprshade
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
