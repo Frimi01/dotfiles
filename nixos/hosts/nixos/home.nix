@@ -208,6 +208,7 @@
     wl-clipboard
     unzip
     vial
+    go
     jdk24
     jetbrains.idea-community
 
