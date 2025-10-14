@@ -109,9 +109,9 @@
   xdg.configFile."waybar/config.jsonc".source = "${inputs.self}/hosts/nixos/waybar/config.jsonc";
   xdg.configFile."waybar/mediaplayer.py".source =
     "${inputs.self}/hosts/nixos/waybar/mediaplayer.py";
-
-  xdg.configFile."wofi/style.css".source =
-    "${inputs.self}/hosts/nixos/wofi/style.css";
+  #  xdg.configFile."wofi/style.css".source =
+  #	"${inputs.self}/hosts/nixos/wofi/style.css";
+  xdg.configFile."walker/config.toml".source = "${inputs.self}/hosts/nixos/walker/config.toml";
 
   xdg.configFile."wlogout/layout".source =
     "${inputs.self}/hosts/nixos/wlogout-layout";
@@ -136,26 +136,8 @@
     mouse = true;
     keyMode = "vi";
   };
-  programs.wofi = {
-    enable = true;
-    settings = {
-      width = 600;
-      height = 400;
-      location = "center";
-      show = "drun";
-      prompt = "Search...";
-      filter_rate = 100;
-      allow_markup = true;
-      no_actions = true;
-      halign = "fill";
-      orientation = "vertical";
-      content_halign = "fill";
-      insensitive = true;
-      allow_images = true;
-      image_size = 40;
-      gtk_dark = true;
-    };
-  };
+  #  programs.wofi = { enable = true; settings = { width = 600; height = 400; location = "center"; show = "drun"; prompt = "Search..."; filter_rate = 100; allow_markup = true; no_actions = true; halign = "fill"; orientation = "vertical"; content_halign = "fill"; insensitive = true; allow_images = true; image_size = 40; gtk_dark = true; }; };
+  services.walker = { enable = true; };
   programs.neovim = {
     enable = true;
     defaultEditor = true;

@@ -1,0 +1,12 @@
+close_when_open = true
+theme = "default"
+timeout = 60
+
+[builtins.applications]
+launch_prefix = "uwsm app -- "
+placeholder = " Search..."
+prioritize_new = false
+context_aware = false
+show_sub_when_single = false
+history = false
+hidden = false
