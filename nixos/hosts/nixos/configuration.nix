@@ -4,7 +4,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
     ];
@@ -13,6 +14,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = false;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -31,24 +33,24 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # VPN config using wireguard
-#  networking.wireguard.enable = true; 
- 
-#  networking.wg-quick.interfaces = {
-#    wg0 = {
-#      address = [ "10.2.0.2/32" ];
-#      dns = [ "10.2.0.1" ];
-#      privateKeyFile = "/etc/wireguard/private.key";  # You may want to use a secret instead
-#
-#      peers = [
-#        {
-#          publicKey = "APcJxf2UbdHXop3dZT3xBj1286WoIxIFSPBdSqCrVS4=";
-#          allowedIPs = [ "0.0.0.0/0" "::/0" ];
-#          endpoint = "185.107.56.162:51820";
-#          persistentKeepalive = 24;
-#        }
-#      ];
-#    };
-#  };
+  #  networking.wireguard.enable = true; 
+
+  #  networking.wg-quick.interfaces = {
+  #    wg0 = {
+  #      address = [ "10.2.0.2/32" ];
+  #      dns = [ "10.2.0.1" ];
+  #      privateKeyFile = "/etc/wireguard/private.key";  # You may want to use a secret instead
+  #
+  #      peers = [
+  #        {
+  #          publicKey = "APcJxf2UbdHXop3dZT3xBj1286WoIxIFSPBdSqCrVS4=";
+  #          allowedIPs = [ "0.0.0.0/0" "::/0" ];
+  #          endpoint = "185.107.56.162:51820";
+  #          persistentKeepalive = 24;
+  #        }
+  #      ];
+  #    };
+  #  };
   # Enable the X11 windowing system.
   services.xserver.enable = false;
 
@@ -58,19 +60,31 @@
   services.desktopManager.gnome.enable = true;
   programs.hyprland.enable = true;
   environment.gnome.excludePackages = with pkgs; [
-	baobab      # disk usage analyzer
-    epiphany    # web browser
-    gedit       # text editor
+    baobab # disk usage analyzer
+    epiphany # web browser
+    gedit # text editor
     simple-scan # document scanner
-    totem       # video player
-    yelp        # help viewer
-    evince      # document viewer
+    totem # video player
+    yelp # help viewer
+    evince # document viewer
     file-roller # archive manager
-    geary       # email client
+    geary # email client
 
-    gnome-calculator gnome-calendar gnome-characters gnome-clocks gnome-contacts
-    gnome-font-viewer gnome-logs gnome-maps gnome-music gnome-photos gnome-screenshot
-    gnome-system-monitor gnome-weather gnome-disk-utility pkgs.gnome-connections
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    gnome-clocks
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    gnome-photos
+    gnome-screenshot
+    gnome-system-monitor
+    gnome-weather
+    gnome-disk-utility
+    pkgs.gnome-connections
   ];
   # Intel GPU driver
   # services.videoDrivers = [ "intel" ];
@@ -112,20 +126,20 @@
   users.users.frimi01 = {
     isNormalUser = true;
     description = "Mikael";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "qemu-libvirtd" ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   users.users.root.hashedPassword = "!";
 
-  home-manager ={
+  home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
-        "frimi01" = import ./home.nix; 
-        };
+      "frimi01" = import ./home.nix;
     };
+  };
 
 
 
@@ -140,23 +154,47 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  wget  
+    #  wget  
     home-manager
     git
     gcc
-  ]; 
+
+
+    virt-manager # GUI VM manager
+    virt-viewer # Optional: View VMs via SPICE
+    spice-gtk # SPICE graphical support
+    spice-protocol
+    win-virtio # VirtIO drivers ISO
+    win-spice # SPICE guest tools for Windows
+  ];
 
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
-  #  corefonts
+    #  corefonts
   ];
 
-  
-  services.clamav.daemon.enable = true;
-  services.clamav.updater.enable = true; 
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  services.clamav.daemon.enable = true;
+  services.clamav.updater.enable = true;
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+
+  # VM support new
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm; # Lighter than default?
+        ovmf.enable = true; # Enables UEFI firmware
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+        swtpm.enable = false; # Not needed for Windows 10
+      };
+    };
+    spiceUSBRedirection.enable = false; # Optional – disable unless needed
+  };
+  programs.dconf.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
