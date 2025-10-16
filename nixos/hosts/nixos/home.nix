@@ -191,7 +191,7 @@
     unzip
     vial
     go
-    jdk24
+    jdk25
     jetbrains.idea-community
     python314
 
