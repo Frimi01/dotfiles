@@ -193,6 +193,7 @@
     go
     jdk24
     jetbrains.idea-community
+    python314
 
     # spellcheck
     hunspell
