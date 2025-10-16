@@ -84,7 +84,7 @@
     gnome-system-monitor
     gnome-weather
     gnome-disk-utility
-    pkgs.gnome-connections
+    gnome-connections
   ];
   # Intel GPU driver
   # services.videoDrivers = [ "intel" ];
@@ -187,8 +187,6 @@
       enable = true;
       qemu = {
         package = pkgs.qemu_kvm; # Lighter than default?
-        ovmf.enable = true; # Enables UEFI firmware
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
         swtpm.enable = false; # Not needed for Windows 10
       };
     };
