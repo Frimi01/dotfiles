@@ -193,6 +193,8 @@
     go
     jdk25
     jetbrains.idea-community
+    jetbrains.clion
+    jetbrains.webstorm
     python314
 
     # spellcheck
@@ -219,6 +221,8 @@
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "obsidian"
+    "clion"
+    "webstorm"
     # "corefonts"
   ];
 
