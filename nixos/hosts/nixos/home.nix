@@ -55,6 +55,17 @@
         color = "rgba(1a1a1aee)";
       };
     };
+
+    # JetBrains IDE flicker / tooltip / tab-drag fixes
+    windowrulev2 = [
+      # Fix tooltips (title starts with "win")
+      "noinitialfocus,class:^(.*jetbrains.*)$,title:^(win.*)$"
+      "nofocus,class:^(.*jetbrains.*)$,title:^(win.*)$"
+
+      # Fix tab-drag windows (title is a single space)
+      "noinitialfocus,class:^(.*jetbrains.*)$,title:^\\s$"
+      "nofocus,class:^(.*jetbrains.*)$,title:^\\s$"
+    ];
   };
 
   services.hypridle = {
