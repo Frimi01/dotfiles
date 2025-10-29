@@ -220,6 +220,7 @@
     ripgrep
     wlogout
     hyprlock
+    wireguard-tools
 
     # hyprland
     pavucontrol
