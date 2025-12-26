@@ -164,7 +164,7 @@
     virt-viewer # Optional: View VMs via SPICE
     spice-gtk # SPICE graphical support
     spice-protocol
-    win-virtio # VirtIO drivers ISO
+    virtio-win # VirtIO drivers ISO
     win-spice # SPICE guest tools for Windows
   ];
 
