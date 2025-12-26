@@ -203,7 +203,7 @@
     vial
     go
     jdk25
-    jetbrains.idea-community
+    jetbrains.idea
     jetbrains.clion
     jetbrains.webstorm
     python314
@@ -235,6 +235,7 @@
     "obsidian"
     "clion"
     "webstorm"
+    "idea"
     # "corefonts"
   ];
 
