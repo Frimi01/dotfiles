@@ -122,11 +122,17 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  virtualisation.podman = { # Docker though podman
+    enable = true;
+    dockerCompat = true;
+    dockerSocket.enable = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.frimi01 = {
     isNormalUser = true;
     description = "Mikael";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "qemu-libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" "qemu-libvirtd" "podman" ];
     packages = with pkgs; [
       #  thunderbird
     ];
