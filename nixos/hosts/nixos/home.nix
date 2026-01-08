@@ -205,6 +205,7 @@
     jetbrains.clion
     jetbrains.webstorm
 
+	docker-compose
     htop
     fastfetch
     tree
