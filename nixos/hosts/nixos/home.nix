@@ -201,18 +201,10 @@
     wl-clipboard
     unzip
     vial
-    go
-    jdk25
     jetbrains.idea
     jetbrains.clion
     jetbrains.webstorm
-    python314
 
-    # spellcheck
-    hunspell
-    hunspellDicts.en_US
-
-    # sys utils
     htop
     fastfetch
     tree
@@ -222,6 +214,10 @@
     hyprlock
     wireguard-tools
 
+    # spellcheck
+    hunspell
+    hunspellDicts.en_US
+
     # hyprland
     pavucontrol
     dunst
@@ -229,6 +225,11 @@
     playerctl
     brightnessctl
     hyprshade
+	
+	# languages
+    go
+    jdk25
+    python314
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
