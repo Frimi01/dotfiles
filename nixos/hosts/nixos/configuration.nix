@@ -51,6 +51,23 @@
   #      ];
   #    };
   #  };
+
+
+  # Handle graceful shutdown at low power.
+	services.upower = {
+		enable = true;
+
+		percentageLow = 20;
+		percentageCritical = 10;
+		percentageAction = 8;
+	};
+
+	services.logind.settings.Login = {
+			HandleLowBattery = "ignore";
+			HandleCriticalPower = "poweroff";
+	};
+
+	
   # Enable the X11 windowing system.
   services.xserver.enable = false;
 
