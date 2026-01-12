@@ -260,20 +260,21 @@ require("catppuccin").setup({
 cmd.colorscheme("catppuccin")
 api.nvim_exec_autocmds("FileType", {})
 
--- Formatter
-local lspconfig = require("lspconfig")
-
--- Capabilities to support nvim-cmp
+-- LSPCONFIG
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lspconfig.ts_ls.setup({
-	capabilities = capabilities,
-})
-lspconfig.gopls.setup({
-	capabilities = capabilities,
-})
-lspconfig.jdtls.setup({
-	capabilities = capabilities,
-})
+-- TypeScript
+vim.lsp.config.ts_ls = {
+  capabilities = capabilities,
+}
+-- Go
+vim.lsp.config.gopls = {
+  capabilities = capabilities,
+}
+-- Java
+vim.lsp.config.jdtls = {
+  capabilities = capabilities,
+}
+
 -- cmp.lua
 local cmp = require("cmp")
 
