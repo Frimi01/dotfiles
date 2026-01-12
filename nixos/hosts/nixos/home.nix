@@ -8,7 +8,7 @@
   wayland.windowManager.hyprland.extraConfig = builtins.concatStringsSep "\n" [
     (builtins.readFile "${inputs.self}/hosts/nixos/hypr/animations-instant.conf")
     (builtins.readFile "${inputs.self}/hosts/nixos/hypr/keybinds.conf")
-    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/workspaces.conf")
+    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/extraRules.conf")
   ];
 
   wayland.windowManager.hyprland.settings = {
