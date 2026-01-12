@@ -274,6 +274,11 @@ vim.lsp.config.gopls = {
 vim.lsp.config.jdtls = {
   capabilities = capabilities,
 }
+vim.lsp.enable({
+  "ts_ls",
+  "gopls",
+  "jdtls",
+})
 
 -- cmp.lua
 local cmp = require("cmp")
