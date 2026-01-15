@@ -370,6 +370,9 @@ keymap("i", "jk", "<Esc>", { desc = "Escapes insert mode" })
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
+keymap("n", "<leader>da", vim.lsp.buf.code_action, { desc = "Code Action" })
+keymap('n', '<leader>ds', '<cmd>lua vim.diagnostic.open_float(nil, {focus=false})<CR>', { desc = "Show Diagnostic", noremap=true, silent=true })
+
 -- keymap("n", "<leader>pf", "gggqG", { desc = "formatter" })
 keymap("n", "<leader>pf", function()
 	require("conform").format({ async = true, lsp_fallback = true })
