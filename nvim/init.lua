@@ -274,10 +274,16 @@ vim.lsp.config.gopls = {
 vim.lsp.config.jdtls = {
   capabilities = capabilities,
 }
+-- Python
+vim.lsp.config.pyright = {
+  capabilities = capabilities,
+}
+
 vim.lsp.enable({
   "ts_ls",
   "gopls",
   "jdtls",
+  "pyright",
 })
 
 -- cmp.lua
