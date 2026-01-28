@@ -103,6 +103,14 @@
     gnome-disk-utility
     gnome-connections
   ];
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
+  ];
+
+
   # Intel GPU driver
   # services.videoDrivers = [ "intel" ];
 
@@ -172,6 +180,8 @@
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
+
+  programs.steam.enable = true;
 
 
   # List packages installed in system profile. To search, run:
