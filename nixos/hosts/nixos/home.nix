@@ -206,6 +206,7 @@
     jetbrains.clion
     jetbrains.webstorm
 
+	postgresql
 	docker-compose
     htop
     fastfetch
