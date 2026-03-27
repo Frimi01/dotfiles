@@ -8,7 +8,7 @@
   wayland.windowManager.hyprland.extraConfig = builtins.concatStringsSep "\n" [
     (builtins.readFile "${inputs.self}/hosts/nixos/hypr/animations-instant.conf")
     (builtins.readFile "${inputs.self}/hosts/nixos/hypr/keybinds.conf")
-    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/extraRules.conf")
+    (builtins.readFile "${inputs.self}/hosts/nixos/hypr/windowrules.conf")
   ];
 
   wayland.windowManager.hyprland.settings = {
@@ -18,7 +18,6 @@
     # startup apps
     exec-once = [
       "waybar"
-      "hyprpaper"
       "dunst" # notifications
     ];
 
@@ -56,18 +55,7 @@
         color = "rgba(1a1a1aee)";
       };
     };
-
-    # JetBrains IDE flicker / tooltip / tab-drag fixes
-    windowrulev2 = [
-      # Fix tooltips (title starts with "win")
-      "noinitialfocus,class:^(.*jetbrains.*)$,title:^(win.*)$"
-      "nofocus,class:^(.*jetbrains.*)$,title:^(win.*)$"
-
-      # Fix tab-drag windows (title is a single space)
-      "noinitialfocus,class:^(.*jetbrains.*)$,title:^\\s$"
-      "nofocus,class:^(.*jetbrains.*)$,title:^\\s$"
-    ];
-  };
+};
 
   services.hypridle = {
     enable = true;
